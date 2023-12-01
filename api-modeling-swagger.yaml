@@ -1,0 +1,24 @@
+openapi: 3.0.0
+servers:
+  - url: https://api.example.com
+info:
+  title: My API
+  version: 1.0.0
+tags:
+  - name: Tag1
+    description: Description for Tag1
+  - name: Tag2
+    description: Description for Tag2
+paths:
+    /example:
+      get:
+        summary: Example endpoint
+        responses:
+          '200':
+            description: Successful response
+    /:
+      get:
+        summary: Sample GET endpoint
+        responses:
+          '200':
+            description: Successful response

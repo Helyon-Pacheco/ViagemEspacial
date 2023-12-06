@@ -1,6 +1,7 @@
 <template>
   <section>
     <h1>Explore Destinos Espaciais</h1>
+    <button @click="logout">Logout</button>
     <div v-if="isLoading">Carregando...</div>
     <div v-else>
       <DestinoList :destinos="destinos" @selecionarDestino="selecionarDestino" />
@@ -30,6 +31,11 @@ export default {
     selecionarDestino(destino) {
       this.destinoSelecionado = destino;
       console.log('Destino selecionado:', this.destinoSelecionado);
+    },
+    logout() {
+      this.$store.commit('logout');
+      localStorage.removeItem('token');
+      this.$router.push('/login');
     }
   },
   mounted() {
@@ -37,7 +43,14 @@ export default {
     this.$store.dispatch('destinos/fetchDestinos')
       .then(() => {
         this.isLoading = false;
+      })
+      .catch(error => {
+        console.error('Erro ao buscar destinos:', error);
+        this.isLoading = false;
       });
   }
 };
 </script>
+
+<style>
+</style>

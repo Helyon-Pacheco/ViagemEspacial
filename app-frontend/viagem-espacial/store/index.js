@@ -1,14 +1,24 @@
+import Vue from 'vue';
 import Vuex from 'vuex';
 import destinos from './destinos';
 
+Vue.use(Vuex);
+
 const createStore = () => {
   return new Vuex.Store({
-    // Configurações globais do Vuex
-    state: {},
-    mutations: {},
-    actions: {},
     modules: {
       destinos
+    },
+    state: () => ({
+      authenticated: false
+    }),
+    mutations: {
+      setAuthenticated(state, value) {
+        state.authenticated = value;
+      },
+      logout(state) {
+        state.authenticated = false;
+      }
     }
   });
 };

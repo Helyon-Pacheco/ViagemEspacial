@@ -1,17 +1,33 @@
 const Destino = require('../models/destino');
 
-// Mock de dados para exemplo
-const destinos = [
-    new Destino(1, 'Marte', 'Planeta', 'Descrição de Marte...'),
-    new Destino(2, 'Vesta', 'Asteroide', 'Descrição de Vesta...')
-];
-
-exports.getDestinos = (req, res) => {
-    res.json(destinos);
+exports.getDestinos = async (req, res) => {
+    try {
+        const destinos = await Destino.findAll();
+        res.json(destinos);
+    } catch (error) {
+        res.status(500).send('Erro ao buscar destinos: ' + error.message);
+    }
 };
 
-exports.getDestinoById = (req, res) => {
-    const destino = destinos.find(d => d.id === parseInt(req.params.id));
-    if (!destino) res.status(404).send('Destino não encontrado.');
-    res.json(destino);
+exports.getDestinoById = async (req, res) => {
+    try {
+        const destino = await Destino.findByPk(req.params.id);
+        if (!destino) {
+            res.status(404).send('Destino não encontrado.');
+        } else {
+            res.json(destino);
+        }
+    } catch (error) {
+        res.status(500).send('Erro ao buscar destino: ' + error.message);
+    }
+};
+
+exports.addDestino = async (req, res) => {
+    try {
+        const { nome, descricao, tipo } = req.body;
+        const novoDestino = await Destino.create({ nome, descricao, tipo });
+        res.status(201).json(novoDestino);
+    } catch (error) {
+        res.status(500).send('Erro ao adicionar destino: ' + error.message);
+    }
 };

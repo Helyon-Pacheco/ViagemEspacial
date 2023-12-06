@@ -3,12 +3,20 @@
     <h1>Bem-vindo ao Planejador de Viagens Espaciais</h1>
     <p>Explore o universo virtualmente e planeje sua próxima aventura espacial.</p>
     <nuxt-link to="/destinos" class="explore-button">Explorar Destinos</nuxt-link>
+    <button @click="logout">Logout</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  methods: {
+    logout() {
+      this.$store.commit('logout');
+      localStorage.removeItem('token');
+      this.$router.push('/login');
+    }
+  }
 };
 </script>
 

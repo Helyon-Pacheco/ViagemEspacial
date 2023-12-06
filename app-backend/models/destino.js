@@ -1,10 +1,19 @@
-class Destino {
-    constructor(id, nome, tipo, descricao) {
-        this.id = id;
-        this.nome = nome;
-        this.tipo = tipo;
-        this.descricao = descricao;
+const Sequelize = require('sequelize');
+const sequelize = require('../config/database');
+
+const Destino = sequelize.define('destino', {
+    nome: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    tipo: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    descricao: {
+        type: Sequelize.TEXT,
+        allowNull: true
     }
-}
+});
 
 module.exports = Destino;

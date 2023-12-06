@@ -17,16 +17,24 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchDestinos({ commit }) {
+  fetchDestinos({ commit }) {
     commit('SET_LOADING', true);
     commit('SET_ERROR', null);
-    try {
-      const response = await this.$axios.get('/api/destinos');
-      commit('SET_DESTINOS', response.data);
-      commit('SET_LOADING', false);
-    } catch (error) {
-      commit('SET_ERROR', error);
-      commit('SET_LOADING', false);
-    }
+    return this.$axios.get('/api/destinos')
+      .then(response => {
+        commit('SET_DESTINOS', response.data);
+        commit('SET_LOADING', false);
+      })
+      .catch(error => {
+        commit('SET_ERROR', error);
+        commit('SET_LOADING', false);
+      });
   }
+};
+
+// Exportando como módulo padrão
+export default {
+  state,
+  mutations,
+  actions
 };

@@ -31,3 +31,15 @@ exports.addDestino = async (req, res) => {
         res.status(500).send('Erro ao adicionar destino: ' + error.message);
     }
 };
+
+exports.getInformacoesCientificas = async (req, res) => {
+    try {
+        const destino = await Destino.findByPk(req.params.id);
+        if (!destino) {
+            return res.status(404).send('Destino não encontrado.');
+        }
+        res.json({ informacoesCientificas: destino.informacoesCientificas });
+    } catch (error) {
+        res.status(500).send('Erro ao buscar informações científicas: ' + error.message);
+    }
+};

@@ -13,6 +13,10 @@ const Destino = sequelize.define('destino', {
     descricao: {
         type: Sequelize.TEXT,
         allowNull: true
+    },
+    informacoesCientificas: {
+        type: Sequelize.TEXT,
+        allowNull: true
     }
 });
 
